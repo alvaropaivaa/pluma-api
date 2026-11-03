@@ -1,0 +1,53 @@
+{
+  "name": "api-roxa",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p .",
+    "start": "node dist/cluster.js",
+    "migrate": "tsx src/migrate.ts",
+    "migrate:prod": "node dist/migrate.js",
+    "typecheck": "tsc -p . --noEmit",
+    "create-user": "tsx src/scripts/create-user.ts",
+    "create-user:prod": "node dist/scripts/create-user.js",
+    "dev:cluster": "tsx src/cluster.ts",
+    "start:single": "node dist/index.js",
+    "test": "DATABASE_URL=${TEST_DATABASE_URL:-postgres://localhost:5432/whatsapp_api_test} ADMIN_KEY=${TEST_ADMIN_KEY:-chave-de-teste-com-mais-de-24-caracteres} NODE_ENV=test LOG_LEVEL=silent ALLOW_PRIVATE_URLS=false OPS_ALERT_EMAILS=ops@teste.com tsx src/migrate.ts && DATABASE_URL=${TEST_DATABASE_URL:-postgres://localhost:5432/whatsapp_api_test} ADMIN_KEY=${TEST_ADMIN_KEY:-chave-de-teste-com-mais-de-24-caracteres} NODE_ENV=test LOG_LEVEL=silent ALLOW_PRIVATE_URLS=false OPS_ALERT_EMAILS=ops@teste.com tsx --test --test-concurrency=1 test/*.test.ts"
+  },
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1135.0",
+    "@aws-sdk/s3-request-presigner": "^3.1135.0",
+    "@fastify/cookie": "^11.1.2",
+    "@fastify/rate-limit": "^11.2.0",
+    "@fastify/reply-from": "^12.6.5",
+    "@fastify/static": "^10.1.4",
+    "baileys": "7.0.0-rc14",
+    "dotenv": "^18.0.0",
+    "fastify": "^5.12.5",
+    "https-proxy-agent": "^9.1.0",
+    "mime-types": "^3.0.2",
+    "nodemailer": "^10.0.10",
+    "pg": "^8.23.0",
+    "pino": "^10.3.1",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.35.4",
+    "socks-proxy-agent": "^10.1.0",
+    "undici": "^8.10.2",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/mime-types": "^3.0.1",
+    "@types/node": "^26.6.1",
+    "@types/nodemailer": "^8.0.2",
+    "@types/pg": "^8.23.1",
+    "@types/qrcode": "^1.5.6",
+    "pino-pretty": "^13.1.3",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}

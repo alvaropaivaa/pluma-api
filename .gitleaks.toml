@@ -1,0 +1,14 @@
+# Varredura de segredos (gitleaks). Usa todas as regras padrão; libera só os marcadores
+# de exemplo da documentação e as senhas fictícias dos testes. Qualquer outro segredo barra.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Exemplos da documentação e dados fictícios dos testes"
+regexes = [
+  '''SEU_TOKEN''',
+  '''SUA_CHAVE''',
+  '''\$\{i \? i\.token''',
+  '''senha-forte-123''',
+  '''chave-de-teste-com-mais-de-24-caracteres''',
+]

@@ -1,0 +1,22 @@
+# HTTPS automático (Let's Encrypt) para o domínio da API
+{$DOMAIN} {
+	encode gzip
+	header {
+		# Navegador só fala HTTPS com o domínio por 1 ano
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "same-origin"
+		-Server
+	}
+	# Os dois containers da API. Um fora (deploy) = tudo vai para o outro;
+	# chamada que não conseguiu conectar tenta de novo no outro
+	reverse_proxy app_a:8080 app_b:8080 {
+		lb_policy round_robin
+		lb_try_duration 15s
+		lb_try_interval 250ms
+		health_uri /health
+		health_interval 3s
+		health_timeout 2s
+		fail_duration 10s
+	}
+}

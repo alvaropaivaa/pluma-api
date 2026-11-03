@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+data
+*.log
+.env.*
+!.env.example
+docs/wapi-spec.json
+_*.mjs
+coverage

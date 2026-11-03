@@ -1,0 +1,10 @@
+#!/bin/sh
+# Barra commit que contenha senha, token ou chave (gitleaks). Instale: brew install gitleaks
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --no-banner --redact || {
+    echo "Commit barrado: parece ter um segredo no que você está commitando."
+    exit 1
+  }
+else
+  echo "Aviso: gitleaks não instalado; a varredura de segredos vai rodar só no GitHub."
+fi
