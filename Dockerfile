@@ -1,5 +1,5 @@
 # ---------- build ----------
-FROM node:22-bookworm-slim AS build
+FROM node:26-bookworm-slim AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
@@ -8,7 +8,7 @@ COPY src ./src
 RUN npx tsc -p . && npm prune --omit=dev
 
 # ---------- produção ----------
-FROM node:22-bookworm-slim
+FROM node:26-bookworm-slim
 # ffmpeg: conversão de áudio para mensagem de voz; tini: repassa sinais e recolhe processos
 RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg ca-certificates tini \
   && rm -rf /var/lib/apt/lists/* && mkdir -p /data/media && chown node:node /data/media
